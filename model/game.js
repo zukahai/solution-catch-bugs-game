@@ -99,6 +99,14 @@ class game {
     }
 
     actionDown(x, y) {
+
+    }
+
+    actionMove(x, y) {
+
+    }
+
+    actionUp(x, y) {
         let Y = Math.ceil((x - this.chessBoard.x) / this.chessBoard.size);
         let X = Math.ceil((y - this.chessBoard.y) / this.chessBoard.size);
         this.chessBoard.matrix[X - 1][Y - 1] = 1 - this.chessBoard.matrix[X - 1][Y - 1];
@@ -149,13 +157,6 @@ class game {
             for (let i = 0; i < this.chessBoard.flashlights.length; i++)
                 this.chessBoard.flashlights[i].resetLacation();
         }
-    }
-
-    actionMove(x, y) {
-
-    }
-
-    actionUp(x, y) {
 
     }
 

@@ -1,5 +1,6 @@
 class Bug {
     constructor(game, x, y, size, index_image) {
+        index_image = 9;
         this.game = game;
         this.x = x;
         this.y = y;
