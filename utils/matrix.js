@@ -29,4 +29,28 @@ class Matrix {
             }
         return matrix;
     }
+
+    static copyMatrix(matrix) {
+        let temp = [];
+        for (let i = 0; i < matrix.length; i++) {
+            let temp2 = [];
+            for (let j = 0; j < matrix[0].length; j++)
+                temp2[j] = matrix[i][j];
+            temp[i] = temp2;
+        }
+        return temp;
+    }
+
+    static check(matrix1, matrix2) {
+        if (matrix1.length != matrix2.length || matrix1[0].length != matrix2[0].length)
+            return false;
+        let count = 0;
+        for (let i = 0; i < matrix1.length; i++)
+            for (let j = 0; j < matrix1[0].length; j++)
+                if (matrix1[i][j] + matrix2[i][j] == 3)
+                    count++;
+        if (count == 6)
+            return true;
+        return false;
+    }
 }

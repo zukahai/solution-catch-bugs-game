@@ -14,6 +14,7 @@ let index_flashlight = -1;
 
 let x_touch = 0;
 let y_touch = 0;
+N = 4;
 
 class game {
     constructor() {
@@ -98,7 +99,12 @@ class game {
     }
 
     actionDown(x, y) {
-
+        let Y = Math.ceil((x - this.chessBoard.x) / this.chessBoard.size);
+        let X = Math.ceil((y - this.chessBoard.y) / this.chessBoard.size);
+        this.chessBoard.matrix[X - 1][Y - 1] = 1;
+        this.chessBoard.initBug();
+        if (this.chessBoard.getNumberBugs() == 6)
+            console.log(this.chessBoard.getSolution());
     }
 
     actionMove(x, y) {
@@ -119,8 +125,36 @@ class game {
         this.chessBoard.newGame();
     }
 
+    drawLine(x1, y1, x2, y2) {
+        this.context.strokeStyle = "#FFFFFF";
+        this.context.lineWidth = 5;
+        this.context.beginPath();
+
+        this.context.moveTo(x1, y1);
+        this.context.lineTo(x2, y2);
+        this.context.stroke();
+    }
+
+    drawNet() {
+        for (let i = 1; i < N; i++) {
+            let x1 = this.chessBoard.x + i * this.chessBoard.size;
+            let y1 = this.chessBoard.y;
+            let x2 = x1;
+            let y2 = y1 + this.chessBoard.size * N;
+            this.drawLine(x1, y1, x2, y2);
+        }
+        for (let i = 1; i < N; i++) {
+            let x1 = this.chessBoard.x;
+            let y1 = this.chessBoard.y + i * this.chessBoard.size;
+            let x2 = x1 + this.chessBoard.size * N;
+            let y2 = y1;
+            this.drawLine(x1, y1, x2, y2);
+        }
+    }
+
     draw() {
         this.clearScreen();
+        this.drawNet();
         this.chessBoard.draw();
         this.drawPhone();
     }

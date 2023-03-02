@@ -5,7 +5,6 @@ let chessBoard_bg_image = new Image();
 chessBoard_bg_image.src = "assets/images/chessboards/chessboard_bg.png";
 
 N = 4
-N_bug = 6
 N_flashlight = 6
 
 
@@ -32,10 +31,10 @@ class ChessBoard {
 
     initMatrix() {
         this.matrix = [
-            [0, 1, 0, 1],
-            [1, 0, 1, 0],
-            [1, 0, 0, 0],
-            [0, 0, 1, 0]
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
         ];
 
         this.block = [
@@ -44,6 +43,17 @@ class ChessBoard {
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ];
+    }
+
+    getSolution() {
+        for (let i = 0; i < this.levels.length; i++) {
+            let matrix1 = Matrix.copyMatrix(this.levels[i].data);
+            if (Matrix.check(matrix1, this.matrix))
+                return this.levels[i];
+        }
+        console.log(this.levels[1].data, this.matrix);
+        return "No solution";
+
     }
 
     getLevel(level) {
@@ -137,6 +147,10 @@ class ChessBoard {
         ]
         for (let i = 0; i < N_flashlight; i++)
             this.flashlights[i] = new Flashlight(this.game, m_n[i][0], m_n[i][1], this.size, i, block[i]);
+    }
+
+    getNumberBugs() {
+        return this.bugs.length;
     }
 
     updateBlock() {
