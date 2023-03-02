@@ -264,6 +264,18 @@ class ChessBoard {
         this.game.context.font = this.size / 3 + 'px MyCustomFont';
         this.game.context.fillStyle = "#99DFEC";
         this.game.context.textAlign = "center";
-        this.game.context.fillText("Click on the squares to set the bugs", game_W / 2, this.size);
+        let text = "Solution";
+        let bugs = 6 - this.bugs.length;
+        if (bugs > 0) {
+            text = "Choose" + " " + bugs + " ";
+            if (bugs > 1)
+                text = text + "bugs";
+            else
+                text = text + "bug";
+        } else {
+            if (this.getSolution() === "No solution")
+                text = "No solution";
+        }
+        this.game.context.fillText(text, game_W / 2, this.size);
     }
 }
