@@ -103,11 +103,51 @@ class game {
         let X = Math.ceil((y - this.chessBoard.y) / this.chessBoard.size);
         this.chessBoard.matrix[X - 1][Y - 1] = 1 - this.chessBoard.matrix[X - 1][Y - 1];
         this.chessBoard.initBug();
-        if (this.chessBoard.getNumberBugs() == 6)
+        if (this.chessBoard.getNumberBugs() == 6 && this.chessBoard.getSolution() !== "No solution") {
             console.log('Solution: ', this.chessBoard.getSolution());
-        this.chessBoard.flashlights[5].updateLocationFromXYReal(0, 0);
-        for (let i = 0; i < this.chessBoard.flashlights.length; i++) {
-            this.chessBoard.flashlights[i].rotate_90();
+            let matrixChessboard = Matrix.copyMatrix(this.chessBoard.getSolution());
+            for (let i = 0; i < this.chessBoard.flashlights.length; i++) {
+                while (true) {
+                    let matrix = Matrix.copyMatrix(this.chessBoard.flashlights[i].block);
+
+                    // console.log(matrix);
+
+                    let m = matrix.length;
+                    let n = matrix[0].length;
+                    let ok = false;
+                    for (let I = 0; I < N && !ok; I++)
+                        for (let J = 0; J < N && !ok; J++) {
+                            let isTrue = true;
+                            for (let I2 = 0; I2 < m; I2++)
+                                for (let J2 = 0; J2 < n; J2++) {
+                                    if (I + I2 < N && J + J2 < N) {
+
+                                        if (matrix[I2][J2] > 0 && matrixChessboard[I + I2][J + J2] != (i + 1)) {
+                                            isTrue = false;
+                                            break;
+                                        }
+                                        if (matrix[I2][J2] == 2 && this.chessBoard.matrix[I + I2][J + J2] != 1) {
+                                            isTrue = false;
+                                            break;
+                                        }
+                                    } else
+                                        isTrue = false;
+                                }
+                            if (isTrue) {
+                                this.chessBoard.flashlights[i].updateLocationFromXYReal(this.chessBoard.x + J * this.chessBoard.size, this.chessBoard.y + I * this.chessBoard.size);
+                            }
+                            ok = isTrue
+                        }
+                    if (ok) {
+                        // console.log("a", matrix);
+                        break;
+                    }
+                    this.chessBoard.flashlights[i].rotate_90();
+                }
+            }
+        } else {
+            for (let i = 0; i < this.chessBoard.flashlights.length; i++)
+                this.chessBoard.flashlights[i].resetLacation();
         }
     }
 
