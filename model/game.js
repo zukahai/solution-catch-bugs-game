@@ -106,6 +106,9 @@ class game {
         if (this.chessBoard.getNumberBugs() == 6)
             console.log('Solution: ', this.chessBoard.getSolution());
         this.chessBoard.flashlights[5].updateLocationFromXYReal(0, 0);
+        for (let i = 0; i < this.chessBoard.flashlights.length; i++) {
+            this.chessBoard.flashlights[i].rotate_90();
+        }
     }
 
     actionMove(x, y) {
