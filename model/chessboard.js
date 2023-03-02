@@ -49,9 +49,8 @@ class ChessBoard {
         for (let i = 0; i < this.levels.length; i++) {
             let matrix1 = Matrix.copyMatrix(this.levels[i].data);
             if (Matrix.check(matrix1, this.matrix))
-                return this.levels[i];
+                return this.levels[i].result;
         }
-        console.log(this.levels[1].data, this.matrix);
         return "No solution";
 
     }
@@ -105,6 +104,7 @@ class ChessBoard {
             number[index2] = temp;
         }
         let count = 0;
+        this.bugs = [];
         for (let i = 0; i < N; i++)
             for (let j = 0; j < N; j++)
                 if (this.matrix[i][j] == 1)

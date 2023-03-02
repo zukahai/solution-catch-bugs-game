@@ -101,10 +101,11 @@ class game {
     actionDown(x, y) {
         let Y = Math.ceil((x - this.chessBoard.x) / this.chessBoard.size);
         let X = Math.ceil((y - this.chessBoard.y) / this.chessBoard.size);
-        this.chessBoard.matrix[X - 1][Y - 1] = 1;
+        this.chessBoard.matrix[X - 1][Y - 1] = 1 - this.chessBoard.matrix[X - 1][Y - 1];
         this.chessBoard.initBug();
         if (this.chessBoard.getNumberBugs() == 6)
-            console.log(this.chessBoard.getSolution());
+            console.log('Solution: ', this.chessBoard.getSolution());
+        this.chessBoard.flashlights[5].updateLocationFromXYReal(0, 0);
     }
 
     actionMove(x, y) {
