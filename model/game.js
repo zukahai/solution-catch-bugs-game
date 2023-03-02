@@ -180,19 +180,21 @@ class game {
     }
 
     drawNet() {
-        for (let i = 1; i < N; i++) {
-            let x1 = this.chessBoard.x + i * this.chessBoard.size;
-            let y1 = this.chessBoard.y;
-            let x2 = x1;
-            let y2 = y1 + this.chessBoard.size * N;
-            this.drawLine(x1, y1, x2, y2);
-        }
-        for (let i = 1; i < N; i++) {
-            let x1 = this.chessBoard.x;
-            let y1 = this.chessBoard.y + i * this.chessBoard.size;
-            let x2 = x1 + this.chessBoard.size * N;
-            let y2 = y1;
-            this.drawLine(x1, y1, x2, y2);
+        if (this.chessBoard.bugs.length < 6) {
+            for (let i = 1; i < N; i++) {
+                let x1 = this.chessBoard.x + i * this.chessBoard.size;
+                let y1 = this.chessBoard.y;
+                let x2 = x1;
+                let y2 = y1 + this.chessBoard.size * N;
+                this.drawLine(x1, y1, x2, y2);
+            }
+            for (let i = 1; i < N; i++) {
+                let x1 = this.chessBoard.x;
+                let y1 = this.chessBoard.y + i * this.chessBoard.size;
+                let x2 = x1 + this.chessBoard.size * N;
+                let y2 = y1;
+                this.drawLine(x1, y1, x2, y2);
+            }
         }
     }
 
